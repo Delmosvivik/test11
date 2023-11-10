@@ -1,37 +1,33 @@
-var question = [
+var questions = [
     {
         question: "Какой язык программирования вы изучаете?",
-        options: ["JavaScript", "Java", "Python", "C++"],
+        options: ["JavaScript", "Python", "Java", "C++"],
         correctAnswer: "JavaScript"
     },
     {
-        question: "Что таклое HTML?",
-        options: ["Язык программирования", "Гипертекстовый язык разметки", "", "C++"],
+        question: "Что такое HTML?",
+        options: ["Гипертекстовый язык разметки", "Язык программирования", "База данных", "Графический редактор"],
         correctAnswer: "Гипертекстовый язык разметки"
     },
     {
-        question: "Какой язык программирования вы изучаете?",
-        options: ["", "Java", "Каскадные таблицы стилей", "C++"],
+        question: "Что такое CSS?",
+        options: ["Каскадные таблицы стилей", "Язык программирования", "Система управления базами данных", "Фреймворк"],
         correctAnswer: "Каскадные таблицы стилей"
     }
-]
-// Текущий вопрос
+];
 var currentQuestion = 0;
-// 
 var correctAnswers = 0;
-
-//Функция перемешивания элементов массива
-
-function shufflerArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * i + 1);
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
+        массива
     }
     return array;
 }
-//Функция перехода к следущему вопросу
+
 function nextQuestion(answer) {
-    if (answer === questions[currentQuestion], correctAnswer) {
+    if (answer === questions[currentQuestion].correctAnswer) {
         correctAnswers++;
     }
     currentQuestion++;
@@ -41,35 +37,33 @@ function nextQuestion(answer) {
         displayResult();
     }
 }
-// Функция отображения текущего вопроса и вариантов ответов
+
 function displayQuestion() {
     var questionElement = document.getElementById("question");
-
-    questionElement.textContent = "Вопрос" + (currentQuestion + 1) + ":" +
+    questionElement.textContent = "Вопрос " + (currentQuestion + 1) + ": " +
         questions[currentQuestion].question;
-
-    var optionElement = document.getElementById("options");
+    var optionsElement = document.getElementById("options");
+    кнопок
     optionsElement.innerHTML = "";
 
-    var shuffleOptions = shufflerArray(questions[currentQuestion].options);
-
-    for (var i = 0; i < shufflerOptions.length; i++) {
-        var option = shufflerOptions[i];
-        optionsElement.innerHTML = optionsElement.innerHTML + `<button onclick="nextQuestion("${option}")">${option}</button>`;
+    var shuffledOptions = shuffleArray(questions[currentQuestion].options);
+    for (var i = 0; i < shuffledOptions.length; i++) {
+        var option = shuffledOptions[i];
+        optionsElement.innerHTML += `<button 
+        onclick="nextQuestion('${option}')">${option}</button>`;
     }
-
 }
 
-//Функция отображения результата
 function displayResult() {
+
     var questionElement = document.getElementById("question");
     var optionsElement = document.getElementById("options");
     var resultElement = document.getElementById("result");
-
     questionElement.style.display = "none";
     optionsElement.style.display = "none";
-
-    resultElement.textCorrect = "Правильных ответов: " + correctAnswers + "из" question.length;
+    resultElement.textContent = "Правильных ответов: " + correctAnswers + " из " +
+        questions.length;
+    resultElement.style.display = "block";
 }
 
 displayQuestion();
